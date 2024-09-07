@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
+
 export class AppComponent {
   title = 'event-management';
 }
