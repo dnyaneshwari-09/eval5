@@ -1,0 +1,50 @@
+<div class="container mt-4">
+    <h2>Events List</h2>
+  
+    <!-- Search Input -->
+    <div class="form-group mb-3">
+      <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Search by event name..." 
+        [(ngModel)]="searchQuery" 
+        (input)="searchEvents()">
+    </div>
+  
+    <!-- Table of Events -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th (click)="toggleSort('eventName')">Event Name</th>
+          <th (click)="toggleSort('ageLimit')">Age Limit</th>
+          <th (click)="toggleSort('eventDateTime')">Event Date</th>
+          <th (click)="toggleSort('eventPrice')">Price</th>
+          <th (click)="toggleSort('eventCity')">City</th>
+          <th (click)="toggleSort('eventAddress')">Address</th>
+          <th (click)="toggleSort('eventDuration')">Duration</th>
+          <th (click)="toggleSort('eventDetails')">Details</th>
+          <th (click)="toggleSort('maxCapacity')">Capacity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of filteredEvents | paginate: { itemsPerPage: pageSize, currentPage: page }">
+          <td>{{ event.eventName }}</td>
+          <td>{{ event.ageLimit }}</td>
+          <td>{{ event.eventDateTime | date: 'short' }}</td>
+          <td>{{ event.eventPrice }}</td>
+          <td>{{ event.eventCity }}</td>
+          <td>{{ event.eventAddress }}</td>
+          <td>{{ event.eventDuration }}</td>
+          <td>{{ event.eventDetails }}</td>
+          <td>{{ event.maxCapacity }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Pagination -->
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  
+    <!-- Download CSV Button -->
+    <button class="btn btn-primary mt-3" (click)="downloadCSV()">Download CSV</button>
+  </div>
+  

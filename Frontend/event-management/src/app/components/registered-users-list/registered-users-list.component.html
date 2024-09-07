@@ -1,0 +1,53 @@
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-12">
+        <input
+          type="text"
+          class="form-control mb-3"
+          placeholder="Search by Name, Email, Mobile, Age, or Gender"
+          [(ngModel)]="searchQuery"
+          (input)="onSearch()"
+        />
+  
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th (click)="onSort('name')">Name</th>
+              <th (click)="onSort('email')">Email</th>
+              <th (click)="onSort('mobileNo')">Mobile</th>
+              <th (click)="onSort('age')">Age</th>
+              <th (click)="onSort('gender')">Gender</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of filteredUsers.slice((currentPage - 1) * pageSize, currentPage * pageSize)">
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.mobileNo }}</td>
+              <td>{{ user.age }}</td>
+              <td>{{ user.gender }}</td>
+            </tr>
+          </tbody>
+        </table>
+  
+        <!-- Pagination Controls -->
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link" (click)="onPageChange(currentPage - 1)">Previous</a>
+            </li>
+            <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index">
+              <a class="page-link" (click)="onPageChange(i + 1)">{{ i + 1 }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
+            </li>
+          </ul>
+        </nav>
+  
+        <!-- Download CSV Button -->
+        <button class="btn btn-success mt-3" (click)="downloadCSV()">Download CSV</button>
+      </div>
+    </div>
+  </div>
+  
